@@ -10,6 +10,8 @@ import msvcrt as m
 default_basepath = r"C:\Users\Bastian\Music"
 basepath = default_basepath
 
+special_characters = ["\\", "/", ":", "*", "?", '"', "<", ">", "|", ]
+
 
 def mainManageFiles(basepath):
     artista = string.capwords(input('Ingrese Nombre de Artista: '))
@@ -52,6 +54,10 @@ def mainManageFiles(basepath):
         print("╟---------------------------------- Moviendo Archivos... -------------------------------------╢")
         print("╚═════════════════════════════════════════════════════════════════════════════════════════════╝")
         try:
+            # Chequear si contiene caracteres especiales y modificarlos
+            for char in artista:
+                if char in special_characters:
+                    artista = artista.replace(char, '')
             artist_dir = os.path.join(basepath, artista)
             # Mover Archivos
             moveMp3Files(artist_dir, tracks_path)
